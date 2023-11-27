@@ -20,6 +20,8 @@ import androidx.compose.material.icons.filled.Add
 import androidx.compose.material.icons.filled.Delete
 import androidx.compose.material.icons.filled.Menu
 import androidx.compose.material.icons.filled.Search
+import androidx.compose.material3.AlertDialog
+import androidx.compose.material3.Button
 import androidx.compose.material3.Checkbox
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.ExtendedFloatingActionButton
@@ -48,6 +50,8 @@ var listaEquipos: MutableList<Personaje> by mutableStateOf(mutableListOf(
         R.drawable.jean_003_icon, 36),
 ))
 
+var listaRemover: MutableList<Personaje> by mutableStateOf(mutableListOf())
+
 val equiposPosibles = arrayOf("PermaFrost", "Nacional", "HyperBloom", "PornoGeo", "TaoHyperCarry")
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -67,6 +71,10 @@ fun JuegoGenshin(navController : NavHostController) {
     var borrar by remember {
         mutableStateOf(false)
     }
+    var openDialog by remember {
+        mutableStateOf(false)
+    }
+
     SearchBar(query = query,
         onQueryChange = {query = it},
         onSearch = {
@@ -108,7 +116,7 @@ fun JuegoGenshin(navController : NavHostController) {
     Column(
         Modifier
             .fillMaxSize()
-            .padding(20.dp,80.dp,20.dp,20.dp)
+            .padding(20.dp, 80.dp, 20.dp, 20.dp)
             .verticalScroll(rememberScrollState())) {
 
         Text("Bienvenido al creador de equipo",
@@ -132,13 +140,52 @@ fun JuegoGenshin(navController : NavHostController) {
             )
             ExtendedFloatingActionButton(
                 onClick = {
-                    borrar = !borrar
+                    if (!borrar) {
+                        borrar = true
+                    } else {
+                        openDialog = true
+                    }
                           },
                 icon = { Icon(Icons.Filled.Delete, "Boton flotante de borrar equipo") },
                 text = { Text(text = "Borrar") },
                 modifier = Modifier.padding(100.dp, 0.dp,0.dp, 0.dp)
             )
         }
+    }
+
+    if (openDialog) {
+        AlertDialog(
+            onDismissRequest = {
+                openDialog = false
+            },
+            title = {
+                Text(text = "Confirme el borrado")
+            },
+            text = {
+                Text("¿Esta seguro de que quiere eliminar los personajes marcados?")
+            },
+            confirmButton = {
+                Button(
+                    onClick = {
+                        listaRemover.forEach { item ->
+                            listaEquipos.remove(item)
+                        }
+                        borrar = false
+                        openDialog = false
+                    }) {
+                    Text("Confirmar")
+                }
+            },
+            dismissButton = {
+                Button(
+                    onClick = {
+                        borrar = false
+                        openDialog = false
+                    }) {
+                    Text("Cancelar")
+                }
+            }
+        )
     }
 }
 
@@ -166,7 +213,7 @@ fun MostrarEquipo (personaje: Personaje, navController : NavHostController, borr
     var checked by remember { mutableStateOf(false) }
 
     if (checked) {
-        listaEquipos.remove(personaje)
+        listaRemover.add(personaje)
     }
     val nombre = personaje.nombre
 
