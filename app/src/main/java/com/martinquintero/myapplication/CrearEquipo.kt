@@ -77,7 +77,7 @@ fun CrearEquipo(navController : NavHostController) {
             R.drawable.itto_057_icon),
         Personaje("Noelle",
             R.drawable.noel_034_icon),
-        Personaje("Raiden Shogun",
+        Personaje("Shogun Raiden",
             R.drawable.shougun_052_icon),
     )}
 
@@ -214,7 +214,10 @@ fun CrearEquipo(navController : NavHostController) {
             modifier = Modifier.padding(bottom = 15.dp)
         )
 
-        val fechaSeleccionada = datePickerView()
+        var fechaSeleccionada = datePickerView()
+        if (fechaSeleccionada.isNullOrEmpty()) {
+            fechaSeleccionada = "No Seleccionada"
+        }
 
         Text("Introduce el equipo donde estaba: ",
             textAlign = TextAlign.Center,
