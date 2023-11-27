@@ -41,13 +41,13 @@ import com.martinquintero.myapplication.ui.rutas.Rutas
 
 var listaEquipos: MutableList<Personaje> by mutableStateOf(mutableListOf(
     Personaje("Hu Tao","TaoHyperCarry","DPS On-field",
-        R.drawable.hutao_046_icon, 36),
+        R.drawable.hutao_046_icon, 36,"15/11/2023"),
     Personaje("Yelan","TaoHyperCarry","DPS Off-field",
-        R.drawable.yelan_060_icon, 36),
+        R.drawable.yelan_060_icon, 36,"15/11/2023"),
     Personaje("Furina","PermaFrost","Buffer",
-        R.drawable.furina_089_icon, 36),
+        R.drawable.furina_089_icon, 36,"27/11/2023"),
     Personaje("Jean","Nacional","Healer",
-        R.drawable.jean_003_icon, 36),
+        R.drawable.jean_003_icon, 36,"20/10/2023"),
 ))
 
 var listaRemover: MutableList<Personaje> by mutableStateOf(mutableListOf())
@@ -228,7 +228,8 @@ fun MostrarEquipo (personaje: Personaje, navController : NavHostController, borr
         ) {
             Image(painter = painterResource(id = personaje.imagen),
                 contentDescription = "",
-                Modifier.padding(end = 25.dp)
+                modifier = Modifier
+                    .padding(top = 30.dp,end = 30.dp)
             )
             Column() {
                 Text("Nombre: "+personaje.nombre,
@@ -236,6 +237,8 @@ fun MostrarEquipo (personaje: Personaje, navController : NavHostController, borr
                 Text("Rol: "+personaje.rol,
                     fontSize = 20.sp)
                 Text("Estrellas conseguidas: "+personaje.estrellas,
+                    fontSize = 20.sp)
+                Text("Fecha: "+personaje.fecha,
                     fontSize = 20.sp)
             }
             if (borrar) {

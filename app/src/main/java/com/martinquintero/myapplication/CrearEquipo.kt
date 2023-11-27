@@ -19,6 +19,7 @@ import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
 import androidx.compose.material.icons.filled.ArrowBack
+import androidx.compose.material3.DatePicker
 import androidx.compose.material3.DropdownMenuItem
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.ExposedDropdownMenuBox
@@ -27,9 +28,11 @@ import androidx.compose.material3.ExtendedFloatingActionButton
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.RadioButton
+import androidx.compose.material3.SelectableDates
 import androidx.compose.material3.Slider
 import androidx.compose.material3.SliderDefaults
 import androidx.compose.material3.TextField
+import androidx.compose.material3.rememberDatePickerState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableFloatStateOf
 import androidx.compose.runtime.mutableIntStateOf
@@ -37,11 +40,14 @@ import androidx.compose.runtime.mutableStateListOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.navigation.NavHostController
 
 import com.martinquintero.myapplication.ui.rutas.Rutas
+import java.text.SimpleDateFormat
+import java.util.Date
 import kotlin.math.roundToInt
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -196,7 +202,15 @@ fun CrearEquipo(navController : NavHostController) {
             Text(text = sliderPosition.toInt().toString())
         }
 
-        Text("Introduce el equipo donde estara: ",
+        Text("Introduce el día que completo el Abismo: ",
+            textAlign = TextAlign.Center,
+            fontSize = 20.sp,
+            modifier = Modifier.padding(bottom = 15.dp)
+        )
+
+        val fechaSeleccionada = datePickerView()
+
+        Text("Introduce el equipo donde estaba: ",
             textAlign = TextAlign.Center,
             fontSize = 20.sp,
             modifier = Modifier.padding(bottom = 15.dp)
@@ -253,7 +267,7 @@ fun CrearEquipo(navController : NavHostController) {
             ExtendedFloatingActionButton(
                 onClick = {
                     listaEquipos.add(Personaje(selectedNombre,equipo,selectedRol,
-                        selectedImagen,sliderPosition.toInt()))
+                        selectedImagen,sliderPosition.toInt(),fechaSeleccionada.toString()))
                     navController.navigate(Rutas.JuegoGenshin.ruta)
                           },
                 icon = { Icon(Icons.Filled.Add, "Boton flotante de crear equipo") },
@@ -267,4 +281,28 @@ fun CrearEquipo(navController : NavHostController) {
             )
         }
     }
+}
+
+@OptIn(ExperimentalMaterial3Api::class)
+@Composable
+fun datePickerView(): String? {
+    val datePickerState = rememberDatePickerState(selectableDates = object : SelectableDates {
+        override fun isSelectableDate(utcTimeMillis: Long): Boolean {
+            return utcTimeMillis <= System.currentTimeMillis()
+        }
+    })
+    val selectedDate = datePickerState.selectedDateMillis?.let {
+        convertMillisToDate(it)
+    }
+    Column(horizontalAlignment = Alignment.CenterHorizontally) {
+        DatePicker(
+            state = datePickerState
+        )
+    }
+    return selectedDate
+}
+
+private fun convertMillisToDate(millis: Long): String {
+    val formatter = SimpleDateFormat("dd/MM/yyyy")
+    return formatter.format(Date(millis))
 }
