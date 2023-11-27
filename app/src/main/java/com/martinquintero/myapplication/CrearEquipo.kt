@@ -73,6 +73,12 @@ fun CrearEquipo(navController : NavHostController) {
             R.drawable.neuvillette_087_icon),
         Personaje("Zhongli",
             R.drawable.zhongli_030_icon),
+        Personaje("Arataki Itto",
+            R.drawable.itto_057_icon),
+        Personaje("Noelle",
+            R.drawable.noel_034_icon),
+        Personaje("Raiden Shogun",
+            R.drawable.shougun_052_icon),
     )}
 
     Column(

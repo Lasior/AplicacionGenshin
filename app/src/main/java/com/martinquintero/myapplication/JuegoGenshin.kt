@@ -40,14 +40,20 @@ import androidx.navigation.NavHostController
 import com.martinquintero.myapplication.ui.rutas.Rutas
 
 var listaEquipos: MutableList<Personaje> by mutableStateOf(mutableListOf(
+    Personaje("Shogun Raiden","HyperBloom","DPS On-field",
+        R.drawable.shougun_052_icon, 36,"7/10/2023"),
     Personaje("Hu Tao","TaoHyperCarry","DPS On-field",
         R.drawable.hutao_046_icon, 36,"15/11/2023"),
     Personaje("Yelan","TaoHyperCarry","DPS Off-field",
         R.drawable.yelan_060_icon, 36,"15/11/2023"),
-    Personaje("Furina","PermaFrost","Buffer",
+    Personaje("Furina","TaoHyperCarry","Buffer",
         R.drawable.furina_089_icon, 36,"27/11/2023"),
+    Personaje("Noelle","PornoGeo","Healer",
+        R.drawable.noel_034_icon, 36,"23/11/2023"),
     Personaje("Jean","Nacional","Healer",
         R.drawable.jean_003_icon, 36,"20/10/2023"),
+    Personaje("Arataki Itto","PornoGeo","DPS On-field",
+        R.drawable.itto_057_icon, 36,"23/11/2023"),
 ))
 
 var listaRemover: MutableList<Personaje> by mutableStateOf(mutableListOf())

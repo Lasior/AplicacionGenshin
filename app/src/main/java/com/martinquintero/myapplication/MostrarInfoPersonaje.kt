@@ -129,6 +129,46 @@ fun MostrarInfoPersonaje(navController : NavHostController, nombre : String) {
                     "Cuando la gente común describe a Zhongli como una \"enciclopedia con patas\", él sonríe, suspira y dice:\n" +
                     "\n" +
                     "\"Yo... solo tengo buena memoria\"."),
+        PersonajeInfo("Shogun Raiden",
+            R.drawable.shougun_052_gacha_splash,"Desde los albores de la humanidad, la gente siempre ha sentido un gran anhelo y curiosidad por las cosas del mundo. Esta es la base de la cognición y el fundamento sobre el que se sustenta la razón.\n" +
+                    "\n" +
+                    "Para la gente de Inazuma, el mundo es así también. En esta nación, las tormentas y los rayos existen desde hace mucho tiempo, igual que existe la luz, el océano y... la Shogun Raiden.\n" +
+                    "\n" +
+                    "Cuando los niños se van a dormir, las madres suelen contarles la leyenda de cómo la Shogun derrotó a otros dioses y conquistó otros pueblos.\n" +
+                    "\n" +
+                    "Cuando los niños de Inazuma visitan otras islas, ven cañones creados mediante el corte de los rayos y los pálidos e imponentes huesos de una serpiente.\n" +
+                    "\n" +
+                    "Cuando los soldados van a la guerra, todos gritan \"¡gloria a la Shogun y a su imperio eterno!\"\n" +
+                    "\n" +
+                    "La gente con trabajos y vidas tranquilos se siente agradecida con la Shogun y los servicios del fiel Triunvirato.\n" +
+                    "\n" +
+                    "La reputación de la Shogun Raiden trascendió los límites de lo mortal hace mucho tiempo, y se convirtió en una eterna fe que se ha transmitido en Inazuma durante generaciones.\n" +
+                    "\n" +
+                    "Debido al prestigio y el poder de su Arconte, el pueblo de Inazuma tiene razones para creer que sus descendientes también verán los mismos paisajes y construirán su mundo en torno a esta fe, la cual seguirán transmitiendo a las siguientes generaciones.\n" +
+                    "\n" +
+                    "En esto precisamente consiste la utopía eterna que la Shogun le prometió a su pueblo."),
+        PersonajeInfo("Arataki Itto",
+            R.drawable.itto_057_gacha_splash,"Si paseas por las calles de Hanamizaka, seguramente te encontrarás con un joven oni llamado Arataki Itto.\n" +
+                    "\n" +
+                    "Dejando de lado sus llamativos cuernos de oni o su penetrante voz, el hecho de verlo jugando con gran entusiasmo con los más pequeños es suficiente para hacer que sobresalga entre la multitud.\n" +
+                    "\n" +
+                    "En cualquier caso, su absoluta ociosidad contrasta con los numerosos artesanos y las ajetreadas calles de Hanamizaka.\n" +
+                    "\n" +
+                    "Itto se llama a sí mismo el \"primer gran líder de la Banda de Arataki\". Tras una de sus muchas inofensivas peleas callejeras, le explicó en qué consistía su trabajo a unos funcionarios de la Comisión Tenryou que fueron a ver qué pasaba. Dos minutos después, los funcionarios le interrumpieron y lo registraron como \"desempleado\".\n" +
+                    "\n" +
+                    "Sin embargo, esta calificación no es del todo exacta, ya que, además del trabajo en su banda, el cual no es reconocido por el Shogunato, Itto también trabaja a tiempo parcial para subsistir. Además, trabaja con una frecuencia muy estable: ¡un día de trabajo y tres de descanso!\n" +
+                    "\n" +
+                    "Por eso, una calificación más precisa sería \"75% desempleado\"."),
+        PersonajeInfo("Noelle",
+            R.drawable.noel_034_gacha_splash,"A diferencia del resto de criadas normales y corrientes de los Caballeros, Noelle guarda en su corazón un sueño mucho más ambicioso.\n" +
+                    "\n" +
+                    "Al vivir en la ciudad que durante miles de años ha sido protegida por los Caballeros de Favonius, tanto ella como todos los jóvenes de Mondstadt ansían el día en que puedan ponerse esa honorable armadura.\n" +
+                    "\n" +
+                    "Aunque no tenga las aptitudes suficientes para pasar el exigente proceso de selección, lo único que busca Noelle es acercarse cada vez más a los Caballeros para aprender de ellos.\n" +
+                    "\n" +
+                    "Aparte de entrenar y estudiar, también disfruta de su vida en Mondstadt, yendo siempre de un sitio a otro para ayudar a todo aquel que necesite que le echen una mano.\n" +
+                    "\n" +
+                    "Su frase estrella es: \"¡Déjamelo a mí! ¡Yo me encargo!\". Por eso, si alguien se encuentra en apuros, basta con gritar su nombre y ella acudirá a ayudar gustosamente."),
     )}
 
     var personajeSeleccionado = PersonajeInfo("",1,"")
