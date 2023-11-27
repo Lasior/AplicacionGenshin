@@ -37,7 +37,6 @@ import androidx.compose.runtime.mutableStateListOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.navigation.NavHostController
@@ -51,7 +50,7 @@ fun CrearEquipo(navController : NavHostController) {
 
     data class Personaje(val nombre: String, val imagen: Int)
 
-    var listaPersonajes = remember { mutableStateListOf<Personaje>(
+    val listaPersonajes = remember { mutableStateListOf<Personaje>(
         Personaje("Hu Tao",
             R.drawable.hutao_046_icon),
         Personaje("Yelan",

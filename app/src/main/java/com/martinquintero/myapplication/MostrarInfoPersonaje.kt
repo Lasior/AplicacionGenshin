@@ -5,7 +5,6 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
@@ -31,7 +30,7 @@ fun MostrarInfoPersonaje(navController : NavHostController, nombre : String) {
 
     data class PersonajeInfo(val nombre: String, val imagen: Int, val descripcion: String)
 
-    var listaPersonajes = remember { mutableStateListOf<PersonajeInfo>(
+    val listaPersonajes = remember { mutableStateListOf<PersonajeInfo>(
         PersonajeInfo("Hu Tao",
             R.drawable.hutao_046_gacha_splash,"La joven Hu Tao es la 77.ª directora de la Funeraria El Camino y la principal encargada de todos los asuntos relacionados con ella. Sin embargo, a pesar de su posición, no siempre sabe comportarse como es debido.\n" +
                     "\n" +

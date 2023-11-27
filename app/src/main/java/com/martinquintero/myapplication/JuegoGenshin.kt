@@ -1,9 +1,7 @@
 package com.martinquintero.myapplication
 
-import android.widget.Toast
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
-import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
@@ -22,24 +20,20 @@ import androidx.compose.material.icons.filled.Add
 import androidx.compose.material.icons.filled.Delete
 import androidx.compose.material.icons.filled.Menu
 import androidx.compose.material.icons.filled.Search
+import androidx.compose.material3.Checkbox
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.ExtendedFloatingActionButton
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
-import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.SearchBar
-import androidx.compose.material3.SearchBarDefaults
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.Shape
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
-import androidx.compose.ui.unit.Dp
 import androidx.navigation.NavHostController
 import com.martinquintero.myapplication.ui.rutas.Rutas
 
@@ -70,6 +64,9 @@ fun JuegoGenshin(navController : NavHostController) {
         query = it
         active = false
     }
+    var borrar by remember {
+        mutableStateOf(false)
+    }
     SearchBar(query = query,
         onQueryChange = {query = it},
         onSearch = {
@@ -99,7 +96,7 @@ fun JuegoGenshin(navController : NavHostController) {
     ) {
         val filteredEquipos = equiposPosibles.filter { it.contains(query, true) }
         filteredEquipos.forEach {item -> Text(
-            text ="${item}",
+            text = item,
             modifier = Modifier
                 .padding(start = 10.dp, top = 5.dp)
                 .clickable {
@@ -121,7 +118,7 @@ fun JuegoGenshin(navController : NavHostController) {
             fontWeight = FontWeight.Bold
         )
 
-        mostrar(navController,query)
+        Mostrar(navController,query,borrar)
 
         Row(
             Modifier
@@ -134,7 +131,9 @@ fun JuegoGenshin(navController : NavHostController) {
                 text = { Text(text = "Añadir") },
             )
             ExtendedFloatingActionButton(
-                onClick = { /*onClick()*/ },
+                onClick = {
+                    borrar = !borrar
+                          },
                 icon = { Icon(Icons.Filled.Delete, "Boton flotante de borrar equipo") },
                 text = { Text(text = "Borrar") },
                 modifier = Modifier.padding(100.dp, 0.dp,0.dp, 0.dp)
@@ -144,25 +143,32 @@ fun JuegoGenshin(navController : NavHostController) {
 }
 
 @Composable
-fun mostrarEquipo (nombre: String, equipo: String, rol: String, imagen: Int, estrellas: Int, navController : NavHostController) {
+fun MostrarEquipo (personaje: Personaje, navController : NavHostController, borrar: Boolean) {
 
     var color = Color.Cyan
 
-    if (equipo == "Nacional") {
+    if (personaje.equipo == "Nacional") {
         color = Color.LightGray
     }
-    if (equipo == "TaoHyperCarry") {
+    if (personaje.equipo == "TaoHyperCarry") {
         color = Color.Red
     }
-    if (equipo == "HyperBloom") {
+    if (personaje.equipo == "HyperBloom") {
         color = Color.Green
     }
-    if (equipo == "PermaFrost") {
+    if (personaje.equipo == "PermaFrost") {
         color = Color.Cyan
     }
-    if (equipo == "PornoGeo") {
+    if (personaje.equipo == "PornoGeo") {
         color = Color.Yellow
     }
+
+    var checked by remember { mutableStateOf(false) }
+
+    if (checked) {
+        listaEquipos.remove(personaje)
+    }
+    val nombre = personaje.nombre
 
     ExtendedFloatingActionButton(onClick = { navController.navigate(Rutas.MostrarInfoPersonaje.ruta+"/$nombre")},
         containerColor = color,
@@ -173,32 +179,36 @@ fun mostrarEquipo (nombre: String, equipo: String, rol: String, imagen: Int, est
                 .fillMaxSize()
                 .padding(10.dp)
         ) {
-            Image(painter = painterResource(id = imagen),
+            Image(painter = painterResource(id = personaje.imagen),
                 contentDescription = "",
                 Modifier.padding(end = 25.dp)
-               )
+            )
             Column() {
-                Text("Nombre: "+nombre,
+                Text("Nombre: "+personaje.nombre,
                     fontSize = 20.sp)
-                Text("Rol: "+rol,
+                Text("Rol: "+personaje.rol,
                     fontSize = 20.sp)
-                Text("Estrellas conseguidas: "+estrellas,
+                Text("Estrellas conseguidas: "+personaje.estrellas,
                     fontSize = 20.sp)
             }
-           /* val checked = remember { mutableStateOf(false) }
-            Checkbox(
-                checked = checked.value,
-                onCheckedChange = { checked.value = it },
-            )*/
+            if (borrar) {
+                Checkbox(
+                    checked = checked,
+                    onCheckedChange = { checked = it },
+                    modifier = Modifier
+                        .padding(top = 30.dp)
+                )
+            }
         }
     }
 }
 
+
 @Composable
-fun mostrar (navController : NavHostController, query : String) {
+fun Mostrar (navController: NavHostController, query: String, borrar: Boolean) {
     for (personaje in listaEquipos) {
         if (query == personaje.equipo || query == "") {
-            mostrarEquipo(personaje.nombre,personaje.equipo,personaje.rol,personaje.imagen,personaje.estrellas,navController)
+            MostrarEquipo(personaje,navController, borrar)
         }
     }
 }
