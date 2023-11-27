@@ -54,6 +54,8 @@ var listaEquipos: MutableList<Personaje> by mutableStateOf(mutableListOf(
         R.drawable.jean_003_icon, 36),
 ))
 
+val equiposPosibles = arrayOf("PermaFrost", "Nacional", "HyperBloom", "PornoGeo", "TaoHyperCarry")
+
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun JuegoGenshin(navController : NavHostController) {
@@ -64,9 +66,8 @@ fun JuegoGenshin(navController : NavHostController) {
     var active by remember {
         mutableStateOf(false)
     }
-    val ctx = LocalContext.current
     val onSearch:(String) -> Unit = {
-        Toast.makeText(ctx,query,Toast.LENGTH_SHORT).show()
+        query = it
         active = false
     }
     SearchBar(query = query,
@@ -86,24 +87,25 @@ fun JuegoGenshin(navController : NavHostController) {
                 contentDescription = null
             )
         }},
-        trailingIcon = { IconButton(onClick={ if(query.isNotEmpty()) onSearch(query) })  {
+        trailingIcon = { IconButton(
+            onClick = { onSearch(query) },
+            enabled = query.isNotEmpty()
+        ){
             Icon(
                 imageVector = Icons.Default.Search,
                 contentDescription = null
             )
         }}
     ) {
-        if (query.isEmpty()) {
-            val filteredEquipos = listaEquipos.filter { it.equipo.contains(query, true) }
-            filteredEquipos.forEach {item -> Text(
-                text ="${item.equipo}",
-                modifier = Modifier
-                    .clickable {
-                        Toast.makeText(ctx,item.equipo,Toast.LENGTH_SHORT).show()
-                        active = false
-                    }
-            )}
-        }
+        val filteredEquipos = equiposPosibles.filter { it.contains(query, true) }
+        filteredEquipos.forEach {item -> Text(
+            text ="${item}",
+            modifier = Modifier
+                .padding(start = 10.dp, top = 5.dp)
+                .clickable {
+                    onSearch(item)
+                }
+        )}
     }
 
     Column(
@@ -119,7 +121,7 @@ fun JuegoGenshin(navController : NavHostController) {
             fontWeight = FontWeight.Bold
         )
 
-        mostrar(navController)
+        mostrar(navController,query)
 
         Row(
             Modifier
@@ -193,8 +195,10 @@ fun mostrarEquipo (nombre: String, equipo: String, rol: String, imagen: Int, est
 }
 
 @Composable
-fun mostrar (navController : NavHostController) {
+fun mostrar (navController : NavHostController, query : String) {
     for (personaje in listaEquipos) {
-        mostrarEquipo(personaje.nombre,personaje.equipo,personaje.rol,personaje.imagen,personaje.estrellas,navController)
+        if (query == personaje.equipo || query == "") {
+            mostrarEquipo(personaje.nombre,personaje.equipo,personaje.rol,personaje.imagen,personaje.estrellas,navController)
+        }
     }
 }

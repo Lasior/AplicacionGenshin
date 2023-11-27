@@ -85,7 +85,6 @@ fun CrearEquipo(navController : NavHostController) {
 
         var selectedNombre by remember { mutableStateOf(listaPersonajes[0].nombre) }
         var selectedImagen by remember { mutableIntStateOf(listaPersonajes[0].imagen) }
-        val equiposPosibles = arrayOf("PermaFrost", "Nacional", "HyperBloom", "PornoGeo", "TaoHyperCarry")
         var equipo by remember { mutableStateOf(equiposPosibles[0]) }
 
         Row() {
